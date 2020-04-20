@@ -16,7 +16,7 @@ User.sync();
 Message.sync();
 User.findOrCreate({ where: { username: 'System' }})
     .then(user => {
-        Message.findOrCreate({ where: { author: user.dataValues.id, text: 'Hi all!!!'}});
+        Message.findOrCreate({ where: { author: 2, text: 'Hi all!!!'}});
     })
 
 app.use(express.static('./build'));
