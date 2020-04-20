@@ -14,9 +14,11 @@ const User = dbConnect.import('./models/user');
 const Message = dbConnect.import('./models/message');
 User.sync();
 Message.sync();
-User.findAll().then(values => console.log(values));
 User.findOrCreate({ where: { username: 'System' }})
-    .then(user => Message.findOrCreate({ where: { author: user.id, text: 'Hi all!!!'}}))
+    .then(user => {
+        console.log(user);
+        Message.findOrCreate({ where: { author: user.id, text: 'Hi all!!!'}});
+    })
 
 app.use(express.static('./build'));
 
