@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
         '& p': {
             marginTop: '0.1em',
             marginBottom: '0.1em',
+            textAlign: 'left',
         },
     },
 }));

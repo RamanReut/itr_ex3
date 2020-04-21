@@ -7,7 +7,7 @@ export default class socket {
     __handleDeleteMessage = () => {};
 
     constructor () {
-        this.socket = socketIO.connect('ws://arcane-thicket-60613.herokuapp.com/socket.io/?EIO=4&transport=websocket');
+        this.socket = socketIO.connect('/');
         this.socket.on('message', this.handleNewMessage.bind(this));
         this.socket.on('user', this.handleNewUser.bind(this));
         this.socket.on('delete message', this.handleDeleteMessage.bind(this));
