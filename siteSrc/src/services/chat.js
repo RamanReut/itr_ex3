@@ -58,7 +58,7 @@ export default class socket {
     }
 
     requestMessages(offset, count, callback) {
-        fetch(`/api/message?offset=${offset}&count=${count}`)
+        fetch(`/api/messages?offset=${offset}&count=${count}`)
             .then((response) => {
                 if (response.ok) {
                     response.json().then(

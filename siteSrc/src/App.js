@@ -196,6 +196,7 @@ function App() {
                                     onMessageEdit={handleMessageEdit}
                                     scrollParentRef={messageListWrapperRef.current}
                                     requestLoadMore={loadMoreMessage}
+                                    hasMore={hasMoreMessage}
                                 />
                             </Container>
                         </Grid>
