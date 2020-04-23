@@ -57,6 +57,18 @@ export default class socket {
         });
     }
 
+    requestMessages(offset, count, callback) {
+        fetch(`/api/message?offset=${offset}&count=${count}`)
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then(
+                        ({ messages, usernames, hasMore }) => {
+                            callback(messages, usernames, hasMore);
+                        });
+                }
+            })
+    }
+
     sendMessage(userID, messageID, message) {
         this.socket.emit('message', {
             userID: userID,

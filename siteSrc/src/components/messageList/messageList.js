@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Message from '../message/message';
+import InfiniteScroll from 'react-infinite-scroller';
 
 function withGridItem(Component) {
     return function (props) {
@@ -43,6 +44,9 @@ export default function MessageList({
     messages,
     onMessageEdit,
     onMessageDelete,
+    scrollParentRef,
+    hasMore,
+    requestLoadMore,
 }) {
     const generateItem = (key) => {
         const authorID = messages[key].authorUserID
@@ -59,13 +63,21 @@ export default function MessageList({
     }
 
     return (
-        <Grid
-            container
-            spacing={1}
-            direction='column'
-            wrap='nowrap'
+        <InfiniteScroll
+            loadMore={requestLoadMore}
+            hasMore={hasMore}
+            isReverse={true}
+            useWindow={false}
+            getScrollParent={() => scrollParentRef}
         >
-            {Object.keys(messages).sort((a, b) => a-b).map(generateItem)}
-        </Grid>
+            <Grid
+                container
+                spacing={1}
+                direction='column'
+                wrap='nowrap'
+            >
+                {Object.keys(messages).sort((a, b) => a-b).map(generateItem)}
+            </Grid>
+        </InfiniteScroll>
     )
 }

@@ -35,3 +35,4 @@ export const messages = [
         text: 'Who are you?',
     }, 
 ]
+export const messagesPageSize = 20;

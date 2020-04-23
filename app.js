@@ -19,15 +19,7 @@ User.findOrCreate({ where: { username: 'System' }})
         Message.findOrCreate({ where: { author: 2, text: 'Hi all!!!'}});
     })
 
-app.use(express.static('./build'));
-
-async function getDBInitMessages() {
-    const dbMessages = await Message.findAll({
-        limit: 20,
-        order: [['id', 'DESC']]
-    });
-    return dbMessages;
-}
+app.use(express.static('./siteSrc/build'));
 
 function dbMessagesToMessages(dbMessage) {
     return {
@@ -36,9 +28,18 @@ function dbMessagesToMessages(dbMessage) {
     }
 }
 
-async function getInitMessages() {
-    let messages ={};
-    (await getDBInitMessages()).forEach(
+async function getDBMessages(offset, limit) {
+    let dbMessages = await Message.findAll({
+        offset: offset, 
+        limit: limit, 
+        oreder: [['id', 'ASC']],
+    })
+    return dbMessages.reverse();
+}
+
+async function getMessages(offset, limit) {
+    let messages = {};
+    (await getDBMessages(offset, limit)).forEach(
         elem => 
             messages[elem.dataValues.id] = dbMessagesToMessages(elem));
     return messages;
@@ -69,10 +70,14 @@ async function getUsernamesByMessages(messages) {
     return getUsernamesByIDs([...ids]);
 }
 
-async function initData() {
-    const messages = await getInitMessages();
+async function mapMessages(offset, count) {
+    const messages = await getMessages(offset, count);
     const usernames = await getUsernamesByMessages(messages);
-    return { messages: messages, usernames: usernames }
+    return { 
+        messages: messages, 
+        usernames: usernames, 
+        hasMore: messages.length == count,
+    }
 }
 
 async function newUserID() {
@@ -87,6 +92,11 @@ app.get('/api/newUserID', (req, resp) => {
 
 app.get('/api/initData', (req, resp) => {
     initData().then(data => resp.json(data));
+});
+
+app.get('/api/messages', (req, resp) => {
+    mapMessages(req.query.offset, req.query.count)
+        .then(data => resp.json(data));
 });
 
 function broadcastMessage(messageID, authorID, text, authorUsername) {
