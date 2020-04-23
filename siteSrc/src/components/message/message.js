@@ -5,9 +5,12 @@ import Box from '@material-ui/core/Box';
 import Menu from '../messageMenu/messageMenu';
 import { makeStyles } from '@material-ui/core/styles';
 import showdown from 'showdown';
-import parser from 'html-react-parser';
+import MessageConverter from '../messageConverter/messageConverter';
+import ReactMarkdown from 'react-markdown';
+import { toArray } from 'react-emoji-render';
 
 const converter = new showdown.Converter();
+
 
 const useStyles = makeStyles((theme) => ({
     label: {
@@ -60,7 +63,7 @@ export default function Message({
                         item
                         className={styles.message}
                     >
-                        <div>{parser(converter.makeHtml(message))}</div>
+                        <MessageConverter text={message}/>
                     </Grid>
                 </Grid>
             </MessageBox>

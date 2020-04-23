@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import chat from './services/chat';
 import cookies from 'js-cookie';
-import { messagesPageSize } from './constants'
+import { messagesPageSize } from './constants';
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({

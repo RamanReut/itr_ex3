@@ -90,10 +90,6 @@ app.get('/api/newUserID', (req, resp) => {
     newUserID().then(value => resp.json(value));
 });
 
-app.get('/api/initData', (req, resp) => {
-    initData().then(data => resp.json(data));
-});
-
 app.get('/api/messages', (req, resp) => {
     mapMessages(req.query.offset, req.query.count)
         .then(data => resp.json(data));

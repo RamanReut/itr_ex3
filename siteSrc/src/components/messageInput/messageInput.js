@@ -5,9 +5,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ReactMde from 'react-mde';
 import "react-mde/lib/styles/css/react-mde-all.css";
 import { makeStyles } from '@material-ui/core/styles';
-import showdown from 'showdown'
-
-const converter = new showdown.Converter();
+import MessageConverter from '../messageConverter/messageConverter';
 
 const useStyles = makeStyles({
     textArea: {
@@ -39,7 +37,7 @@ export default function MessageInput({
                     selectedTab={selectedTab}
                     onTabChange={useSelectedTab}
                     generateMarkdownPreview={markdown => {
-                        return Promise.resolve(converter.makeHtml(markdown));
+                        return Promise.resolve(<MessageConverter text={markdown} />)
                     }}
                     minPreviewHeight={100}
                     maxEditorHeight={200}
