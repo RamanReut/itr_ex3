@@ -76,7 +76,7 @@ async function mapMessages(offset, count) {
     return { 
         messages: messages, 
         usernames: usernames, 
-        hasMore: messages.length == count,
+        hasMore: messages.keys.length == count,
     }
 }
 
