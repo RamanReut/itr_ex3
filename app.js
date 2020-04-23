@@ -32,7 +32,7 @@ async function getDBMessages(offset, limit) {
     let dbMessages = await Message.findAll({
         offset: offset, 
         limit: limit, 
-        oreder: [['id', 'DESC']],
+        order: [['id', 'DESC']],
     })
     return dbMessages;
 }
