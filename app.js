@@ -73,6 +73,7 @@ async function getUsernamesByMessages(messages) {
 async function mapMessages(offset, count) {
     const messages = await getMessages(offset, count);
     const usernames = await getUsernamesByMessages(messages);
+    console.log(messages);
     return { 
         messages: messages, 
         usernames: usernames, 
