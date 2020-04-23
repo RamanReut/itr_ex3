@@ -117,9 +117,9 @@ function App() {
     }, [messages, usernames])
 
     const loadMoreMessage = useCallback(() => {
-        console.log(socket.current);
+        setHasMoreMessage(false);
         socket.current.requestMessages(
-            (messages.length || 0), 
+            (Object.keys(messages).length || 0), 
             messagesPageSize,
             handleLoadMessages,
         );
