@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { toArray } from 'react-emoji-render';
+import { Emojione } from 'react-emoji-render';
+
+function EmojiWrapper({ children }) {
+    return <Emojione text={children} />
+}
 
 export default function MessageConverter({
     text,
 }) {
-    let prepareText = toArray(text)
-        .reduce((previous, current) => {
-            if (typeof current === "string") {
-                return previous + current;
-            }
-            return previous + current.props.children;
-        }, "");
+    return (
+        <ReactMarkdown 
+            source={text}
+            renderers={{
+                'text': EmojiWrapper,
+            }}
+        />
 
-    return <ReactMarkdown source={prepareText} />
+    );
 }
